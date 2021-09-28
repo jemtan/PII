@@ -8,7 +8,7 @@ Basic example provided in fpiSubmit.py
 Note that code was converted from tf1 to tf2. Some of the converted operations are not very efficient and will be redone shortly. Self-supervised task is written entirely in numpy for easy conversion to other frameworks.    
 
 ### Key files:  
-self_sup_task_poisson.py - FPI/PII operation used to create self-supervised task
+self_sup_task_poisson.py - FPI/PII operation used to create self-supervised task  
 poissonBlend.py - Poisson operation to blend patches  
 fpiSubmit.py - training/testing loops  
 models/wide_residual_network.py - network architecture  
