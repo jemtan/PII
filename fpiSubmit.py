@@ -309,13 +309,17 @@ if __name__ == '__main__':
     #example
     data = 'cxr'
     dataset_name = 'MaleAdultPA'
-    train_list = 'test_lists/Cardiomegaly_'+dataset_name+'_test_list.txt'
+    train_list = 'train_lists/norm_'+dataset_name+'_train_list.txt'
     data_dir = '/path/to/ChestXray-NIHCC/images'
     out_dir = 'outDir'
     test_set_all = [['test_lists/norm_'+dataset_name+'_test_list.txt',
                      data_dir],
                     ['test_lists/anomaly_'+dataset_name+'_test_list.txt',
                      data_dir]]
+
+    if not os.path.isdir(out_dir):
+        os.mkdir(out_dir)
+    
     #train
     train_folder(data_dir,train_list,out_dir,data)
 
