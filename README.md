@@ -15,9 +15,10 @@ models/wide_residual_network.py - network architecture
 readData.py - data processing, reading/writing data 
 
 ### Data:
-We use chest X-ray data available below:
+We use chest X-ray data available below from ChestX-ray14, provided by the National Institutes of Health:
 ```
 https://nihcc.app.box.com/v/ChestXray-NIHCC
+https://openaccess.thecvf.com/content_cvpr_2017/papers/Wang_ChestX-ray8_Hospital-Scale_Chest_CVPR_2017_paper.pdf
 ```
 Specific patients used for training and testing are specified within train_lists and test_lists
 
