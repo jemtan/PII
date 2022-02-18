@@ -91,20 +91,12 @@ def poisson_blend(ima1,ima2,mask,ret_orig=False,index=None):
         ima2_grad = grad_matrix.multiply(ima2_flat)
         ima2_grad = ima2_grad + scipy.sparse.diags(ima2_flat).dot(grad_mask)
 
-        ima1_shifted = ima1[sli,:,:,0].flatten()
-        ima2_shifted = ima2[sli,:,:,0].flatten()
-
-        ima1_shifted_grad = grad_matrix.multiply(ima1_shifted)#negative neighbour values
-        ima1_shifted_grad += scipy.sparse.diags(ima1_shifted).dot(grad_mask)#add center value to sparse elements to get difference
-        ima2_shifted_grad = grad_matrix.multiply(ima2_shifted)
-        ima2_shifted_grad += scipy.sparse.diags(ima2_shifted).dot(grad_mask)
- 
         #mixing, favor the stronger gradient to improve blending
         alpha = np.max(mask_flat)
-        ima1_greater_mask = (1-alpha)*np.abs(ima1_grad)>alpha*np.abs(ima2_shifted_grad)
-        ima2_greater_mask = (1-alpha)*np.abs(ima2_grad)>alpha*np.abs(ima1_shifted_grad)
-        ima1_guide = alpha*ima2_shifted_grad - ima1_greater_mask.multiply(alpha*ima2_shifted_grad) + ima1_greater_mask.multiply((1-alpha)*ima1_grad)
-        ima2_guide = alpha*ima1_shifted_grad - ima2_greater_mask.multiply(alpha*ima1_shifted_grad) + ima2_greater_mask.multiply((1-alpha)*ima2_grad)
+        ima1_greater_mask = (1-alpha)*np.abs(ima1_grad)>alpha*np.abs(ima2_grad)
+        ima2_greater_mask = (1-alpha)*np.abs(ima2_grad)>alpha*np.abs(ima1_grad)
+        ima1_guide = alpha*ima2_grad - ima1_greater_mask.multiply(alpha*ima2_grad) + ima1_greater_mask.multiply((1-alpha)*ima1_grad)
+        ima2_guide = alpha*ima1_grad - ima2_greater_mask.multiply(alpha*ima1_grad) + ima2_greater_mask.multiply((1-alpha)*ima2_grad)
 
         ima1_guide = np.squeeze(np.array(np.sum(ima1_guide,1)))
         ima2_guide = np.squeeze(np.array(np.sum(ima2_guide,1)))
