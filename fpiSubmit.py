@@ -243,7 +243,8 @@ def submit_test(mdl,data_frame,test_dirs,output_dir,batch_size=32,save_name='',p
             im_level_score = np.mean(pred,axis=(1,2,3))
             subject_score.extend(im_level_score)
 
-            im_level_score_quartile = np.percentile(pred,75,axis=(1,2,3))
+            top_25 = np.percentile(pred,75,axis=(1,2,3))
+            im_level_score_quartile = np.mean(pred[pred>top_25])
             subject_mean_quartile.extend(im_level_score_quartile)#mean of top quartile values
 
             subject_label.extend(np.max(label)*np.ones_like(im_level_score))
